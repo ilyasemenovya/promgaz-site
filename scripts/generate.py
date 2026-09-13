@@ -43,7 +43,7 @@ def header(prefix):
 <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href="{home}" aria-label="ПРОМГАЗ — главная">
-      <img class="brand-logo" src="{prefix}assets/brand/promgaz-logo.svg" alt="ПРОМГАЗ — технические газы" width="1486" height="290">
+      <img class="brand-logo" src="{prefix}assets/brand/promgaz-logo-soft.svg" alt="ПРОМГАЗ — технические газы" width="1486" height="290">
     </a>
     <nav class="desktop-nav" aria-label="Основная навигация">
       <a href="{home}#catalog">Каталог</a>
@@ -94,7 +94,7 @@ def footer(prefix):
     return f'''
 <footer class="site-footer">
   <div class="container footer-main">
-    <a class="brand brand-footer" href="{prefix}index.html" aria-label="ПРОМГАЗ — главная"><img class="brand-logo" src="{prefix}assets/brand/promgaz-logo.svg" alt="ПРОМГАЗ — технические газы" width="1486" height="290" loading="lazy"></a>
+    <a class="brand brand-footer" href="{prefix}index.html" aria-label="ПРОМГАЗ — главная"><img class="brand-logo" src="{prefix}assets/brand/promgaz-logo-soft.svg" alt="ПРОМГАЗ — технические газы" width="1486" height="290" loading="lazy"></a>
     <p>Чебоксары<br>Хозяйственный проезд, 19В</p>
     <div class="footer-links"><a href="{prefix}index.html#contacts">Контакты и схема проезда</a><a href="{prefix}index.html#catalog">Каталог продукции</a></div>
   </div>
