@@ -55,3 +55,13 @@
  .dealer-card > div { padding-left:16px; min-width:0; }
  .dealer-card strong { font-size:16px; }
 }
+
+/* Approved black vector wordmark, including the full-width descriptor. */
+.brand-logo { width:280px; height:auto; }
+.brand-footer { align-self:start; justify-self:start; padding:14px; background:#fff; }
+.brand-footer .brand-logo { width:250px; }
+.menu-toggle { margin-left:auto; flex-shrink:0; }
+@media(max-width:700px) {
+ .header-inner { gap:16px; }
+ .site-header .brand-logo { width:min(280px,calc(100vw - 100px)); }
+}
