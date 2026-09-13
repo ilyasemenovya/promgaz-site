@@ -30,8 +30,8 @@ def head(title, description, prefix):
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
   <link rel="icon" href="{prefix}assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="{prefix}assets/styles.css">
-  <script src="{prefix}assets/site.js" defer></script>
+  <link rel="stylesheet" href="{prefix}assets/styles.css?v=3">
+  <script src="{prefix}assets/site.js?v=3" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Перейти к содержимому</a>'''
@@ -101,92 +101,33 @@ def footer(prefix):
   </div>
   <div class="container footer-bottom"><span>© ПРОМГАЗ, 2026</span><span>ИП Сусарина А. В. · ИНН 212900123770</span></div>
 </footer>
-<div class="mobile-contact-bar"><a href="tel:+78352222121">{PHONE} Позвонить</a><button type="button" data-order>Запросить стоимость</button></div>'''
+<div class="mobile-contact-bar"><a href="tel:+78352222121">{PHONE} Позвонить</a><button type="button" data-order>Узнать стоимость</button></div>'''
 
 def card(g, prefix=""):
-    return f'''<a class="gas-card gas-{g["color"]}" href="{prefix}gases/{g["id"]}.html">
-  <div class="gas-card-top"><span class="gas-formula">{escape(g["formula"])}</span></div>
-  <div><span class="gas-type">{escape(g["type"])}</span><h3>{escape(g["name"])}</h3></div>
-  <div class="gas-card-bottom"><span>Стоимость по запросу</span><span class="catalog-link">Подробнее <span aria-hidden="true">→</span></span></div>
-</a>'''
+    return f'''<article class="gas-card"><a class="product-link" href="{prefix}gases/{g['id']}.html"><div class="catalog-photo"><img src="{prefix}assets/products/{g['id']}.jpg" alt="{escape(g['name'])}: газ в баллонах" width="270" height="190" loading="lazy"></div><div class="card-copy"><span class="gas-type">{escape(g['type'])}</span><h3>{escape(g['name'])}</h3></div></a><div class="card-order"><a href="{prefix}gases/{g['id']}.html">О газе</a><button type="button" data-order="{escape(g['name'])}">Узнать цену</button></div></article>'''
 
 cards = "".join(card(g) for g in GASES)
 home = head("ПРОМГАЗ — технические газы в Чебоксарах", "Продажа технических газов в Чебоксарах. ПРОМГАЗ: более 20 лет на рынке. Хозяйственный проезд, 19В. Телефон +7 (8352) 22-21-21.", "")
 home += header("")
 home += f'''
 <main id="main">
-  <section class="hero">
-    <div class="container hero-grid">
-      <div class="hero-copy">
-        <div class="eyebrow hero-eyebrow">ЧЕБОКСАРЫ</div>
-        <h1>Технические<br>газы</h1>
-        <p>Кислород, аргон, углекислота и другие газы для технических задач. Более 20 лет на рынке.</p>
-        <div class="hero-actions"><a class="button button-white" href="#catalog">Выбрать газ</a><button class="button button-ghost" type="button" data-order>Запросить стоимость</button></div>
-
-      </div>
-      <div class="hero-directory" aria-label="Основные газы">
-        <span class="directory-label">ПРОДУКЦИЯ</span>
-        <a href="gases/oxygen.html"><span class="directory-formula">O₂</span><span>Кислород</span><span class="direction" aria-hidden="true">→</span></a>
-        <a href="gases/argon.html"><span class="directory-formula">Ar</span><span>Аргон</span><span class="direction" aria-hidden="true">→</span></a>
-        <a href="gases/carbon-dioxide.html"><span class="directory-formula">CO₂</span><span>Углекислота</span><span class="direction" aria-hidden="true">→</span></a>
-        <a class="directory-all" href="#catalog"><span>Весь каталог газов</span><span class="direction" aria-hidden="true">↓</span></a>
-      </div>
-    </div>
-  </section>
-
-  <div class="intro-strip">
-    <div class="container strip-grid">
-      <div><span class="strip-number">01</span><p>Выберите<br><strong>нужный газ</strong></p></div>
-      <div><span class="strip-number">02</span><p>Уточните<br><strong>стоимость заказа</strong></p></div>
-      <div><span class="strip-number">03</span><p>Согласуйте<br><strong>получение</strong></p></div>
-    </div>
-  </div>
-
-  <section id="catalog" class="section catalog-section">
-    <div class="container">
-      <div class="section-heading"><div><span class="eyebrow">ПРОДУКЦИЯ</span><h2>Найдите свой газ</h2></div><p>Выберите позицию, чтобы уточнить<br>параметры и запросить стоимость.</p></div>
-      <div class="catalog-grid">{cards}</div>
-      <div class="catalog-bottom"><p>Нужен другой газ или особая марка?</p><button class="text-button" type="button" data-order="Другая продукция или услуга">Обсудить заказ</button></div>
-    </div>
-  </section>
-
-  <section id="services" class="section services-section">
-    <div class="container">
-      <div class="section-heading"><div><span class="eyebrow">УСЛУГИ</span><h2>Газ и всё,<br>что с ним связано</h2></div><p>Уточните доступную услугу<br>и условия для вашего заказа.</p></div>
-      <div class="service-grid">
-        <article class="service"><span class="service-index">01 /</span><h3>Заправка<br>и обмен</h3><p>Сообщите, какой газ нужен и какие баллоны у вас есть. Уточним порядок заправки или обмена.</p><button class="text-button" type="button" data-order="Другая продукция или услуга" data-comment="Интересует заправка или обмен баллонов.">Уточнить условия</button></article>
-        <article class="service"><span class="service-index">02 /</span><h3>Продажа<br>и аренда баллонов</h3><p>Уточните доступные баллоны, стоимость покупки и условия аренды.</p><button class="text-button" type="button" data-order="Другая продукция или услуга" data-comment="Интересует покупка или аренда баллонов.">Уточнить условия</button></article>
-        <article class="service"><span class="service-index">03 /</span><h3>Обслуживание<br>баллонов</h3><p>Вопросы по освидетельствованию и ремонту. Для расчёта сообщите тип и состояние баллона.</p><button class="text-button" type="button" data-order="Другая продукция или услуга" data-comment="Интересует обслуживание баллонов.">Уточнить условия</button></article>
-        <article class="service"><span class="service-index">04 /</span><h3>Доставка<br>и самовывоз</h3><p>Укажите адрес и объём заказа. Согласуем возможность доставки, стоимость и время получения.</p><button class="text-button" type="button" data-order="Другая продукция или услуга" data-comment="Хочу уточнить условия доставки или самовывоза.">Уточнить условия</button></article>
-      </div>
-    </div>
-  </section>
-
-  <section id="company" class="section company-section">
-    <div class="container company-grid">
-      <div><span class="eyebrow">О КОМПАНИИ</span><h2>Более 20 лет<br>в технических<br><span class="blue">газах</span></h2></div>
-      <div class="company-copy"><p class="lead">Более 20 лет<br>на рынке технических газов.</p><p>Работаем в Чебоксарах на Хозяйственном проезде, 19В. Поможем уточнить ассортимент, стоимость и условия получения вашего заказа.</p><p>Для расчёта достаточно сообщить, какой газ нужен, в каком количестве и есть ли у вас свои баллоны.</p><a class="text-button" href="#contacts">Связаться с нами</a></div>
-    </div>
-    <div class="container"><div class="partner-block"><div><span class="eyebrow">НАШ ПАРТНЁР</span><h3>Линде Газ Рус</h3></div><p>Информация о газах и оборудовании партнёра — в официальном каталоге.</p><a class="button button-outline" href="https://linru.ru/gases_and_equipment/" target="_blank" rel="noopener noreferrer">Каталог партнёра </a></div></div>
-  </section>
-
-  <section class="request-section">
-    <div class="container request-grid"><div><span class="eyebrow">ОТДЕЛ ПРОДАЖ</span><h2>Обсудим<br>ваш заказ?</h2></div><div><p>Газ, количество, условия получения.<br>Начнём с того, что вам нужно.</p><button class="button button-white" type="button" data-order>Запросить стоимость</button><a class="request-email" href="mailto:{EMAIL}">{EMAIL}</a></div></div>
-  </section>
-
-  <section id="contacts" class="section contacts-section">
-    <div class="container">
-      <div class="section-heading"><div><span class="eyebrow">КОНТАКТЫ</span><h2>Мы в Чебоксарах</h2></div><a class="text-button" href="{MAP}" target="_blank" rel="noopener noreferrer">Открыть Яндекс Карты </a></div>
-      <div class="contacts-grid">
-        <div class="contact-details">
-          <div class="contact-item"><span class="contact-label">АДРЕС</span><p>Хозяйственный<br>проезд, 19В</p><span class="muted">Перед приездом уточните время работы.</span></div>
-          <div class="contact-item"><span class="contact-label">ТЕЛЕФОНЫ</span><a href="tel:+78352222121">+7 (8352) 22-21-21</a><a href="tel:+78352283093">+7 (8352) 28-30-93</a><a href="tel:+79278480990">+7 (927) 848-09-90</a></div>
-          <div class="contact-item"><span class="contact-label">ПОЧТА</span><a class="email-link" href="mailto:{EMAIL}">{EMAIL}</a></div>
-        </div>
-        <div class="visit-panel"><span class="eyebrow">САМОВЫВОЗ</span><h3>Хозяйственный<br>проезд, 19В</h3><p>Чебоксары</p><a class="visit-link" href="{MAP}" target="_blank" rel="noopener noreferrer">Построить маршрут <span aria-hidden="true">→</span></a><p class="visit-note">Перед приездом позвоните — согласуем заказ и время получения.</p></div>
-      </div>
-    </div>
-  </section>
+<section class="hero">
+ <div class="container hero-grid">
+  <div class="hero-copy"><p class="hero-location">ПРОМГАЗ / ЧЕБОКСАРЫ</p><h1>Технические газы<br>для вашего<br><span>производства</span></h1><p class="hero-description">Поставка газов, заправка и обмен баллонов.<br>Более 20 лет работаем в Чебоксарах.</p><div class="hero-actions"><a href="#catalog" class="button button-blue">Выбрать газ</a><a href="tel:+78352222121" class="hero-phone">+7 (8352) 22-21-21<span>Уточнить наличие и стоимость</span></a></div></div>
+  <div class="hero-media"><img class="industry-image" src="assets/industrial.jpg" alt="Применение технических газов в промышленности — материалы Linde" width="900" height="600" fetchpriority="high"><div class="dealer-card"><img src="assets/linde-logo.png" alt="Linde" width="150" height="80"><div><strong>Дилер Linde</strong><span>Мировой бренд промышленных газов</span></div></div></div>
+ </div>
+</section>
+<div class="facts"><div class="container facts-grid"><div><strong>20+ лет</strong><span>на рынке технических газов</span></div><div><strong>Газы и баллоны</strong><span>Заправка, обмен, покупка и аренда</span></div><div><strong>Чебоксары</strong><span>Хозяйственный проезд, 19В</span></div></div></div>
+<section id="catalog" class="section catalog-section"><div class="container"><div class="section-heading"><div><span class="eyebrow">ПРОДУКЦИЯ</span><h2>Какой газ вам нужен?</h2></div><p>Выберите газ для заказа.<br>Марку, объём и стоимость уточним при обращении.</p></div><div class="catalog-grid">{cards}</div><div class="catalog-bottom"><p>Есть спецификация или список для закупки?</p><a href="mailto:{EMAIL}" class="text-button">Отправить на {EMAIL}</a></div></div></section>
+<section id="services" class="section services-section"><div class="container service-layout"><div class="service-heading"><span class="eyebrow">БАЛЛОНЫ И УСЛУГИ</span><h2>Решим вопрос<br>с баллонами</h2><p>Можно обратиться за газом, баллоном или обслуживанием — согласуем всё в одном заказе.</p></div><div class="service-list">
+ <article class="service"><h3>Заправка и обмен</h3><p>Сообщите тип и объём ваших баллонов. Уточним условия заправки или подберём обмен.</p><button type="button" data-order="Другая продукция или услуга" data-comment="Нужна заправка или обмен баллонов.">Обсудить заправку</button></article>
+ <article class="service"><h3>Продажа и аренда</h3><p>Если своего баллона нет, обсудим покупку или аренду под ваш заказ.</p><button type="button" data-order="Другая продукция или услуга" data-comment="Нужна покупка или аренда баллона.">Подобрать баллон</button></article>
+ <article class="service"><h3>Обслуживание баллонов</h3><p>Освидетельствование и ремонт. Для расчёта нужны тип и состояние баллона.</p><button type="button" data-order="Другая продукция или услуга" data-comment="Интересует обслуживание баллонов.">Уточнить условия</button></article>
+ <article class="service"><h3>Доставка и самовывоз</h3><p>Самовывоз — с Хозяйственного проезда, 19В. Доставку рассчитаем по адресу и объёму заказа.</p><button type="button" data-order="Другая продукция или услуга" data-comment="Хочу рассчитать доставку.">Рассчитать доставку</button></article>
+</div></div></section>
+<section id="company" class="section company-section"><div class="container dealer-section"><div class="dealer-brand"><img src="assets/linde-logo.png" alt="Linde" width="240" height="128"><span>ПРОМГАЗ — ДИЛЕР LINDE</span></div><div class="company-copy"><span class="eyebrow">ПРОИЗВОДИТЕЛЬ ИМЕЕТ ЗНАЧЕНИЕ</span><h2>Газы Linde.<br>Поставщик в Чебоксарах.</h2><p>ПРОМГАЗ — дилер Linde. Вы можете заказать продукцию бренда у местного поставщика и обсудить марку газа, объём и условия получения напрямую с нашим отделом продаж.</p><a href="https://linru.ru/gases_and_equipment/" target="_blank" rel="noopener noreferrer" class="text-button">Продукция Linde</a></div></div></section>
+<section class="request-section"><div class="container request-grid"><div><span class="eyebrow">ЗАКАЗ ГАЗА</span><h2>Назовите газ и объём.<br>Рассчитаем заказ.</h2><p>Сообщите, есть ли свои баллоны и нужна ли доставка.</p></div><div class="request-contact"><a href="tel:+78352222121">+7 (8352) 22-21-21</a><button type="button" class="button button-white" data-order>Подготовить запрос по почте</button><span>Для спецификаций: <a href="mailto:{EMAIL}">{EMAIL}</a></span></div></div></section>
+<section id="contacts" class="section contacts-section"><div class="container"><div class="section-heading"><div><span class="eyebrow">КОНТАКТЫ</span><h2>ПРОМГАЗ в Чебоксарах</h2></div></div><div class="contacts-grid"><div class="contact-details"><div class="contact-item"><span class="contact-label">ОТДЕЛ ПРОДАЖ</span><a href="tel:+78352222121">+7 (8352) 22-21-21</a><a href="tel:+78352283093">+7 (8352) 28-30-93</a><a href="tel:+79278480990">+7 (927) 848-09-90</a></div><div class="contact-item"><span class="contact-label">ЭЛЕКТРОННАЯ ПОЧТА</span><a href="mailto:{EMAIL}">{EMAIL}</a></div></div><div class="visit-panel"><span class="eyebrow">АДРЕС</span><h3>Хозяйственный проезд, 19В</h3><p>Перед приездом уточните время работы и наличие нужного газа.</p><a class="button button-blue" href="{MAP}" target="_blank" rel="noopener noreferrer">Построить маршрут</a></div></div></div></section>
 </main>'''
 home += footer("") + order_dialog() + "\n</body></html>\n"
 (DIST / "index.html").write_text(home, encoding="utf-8")
@@ -198,8 +139,8 @@ for g in GASES:
 <main id="main">
   <div class="container breadcrumbs"><a href="../index.html">Главная</a><span>/</span><a href="../index.html#catalog">Каталог</a><span>/</span><span>{escape(g["name"])}</span></div>
   <section class="container product-hero">
-    <div class="product-symbol gas-{g["color"]}"><span class="eyebrow">ПРОМГАЗ / ТЕХНИЧЕСКИЕ ГАЗЫ</span><div>{escape(g["formula"])}</div><span>{escape(g["type"])}</span></div>
-    <div class="product-info"><span class="eyebrow">ТЕХНИЧЕСКИЕ ГАЗЫ В ЧЕБОКСАРАХ</span><h1>{escape(g["name"])}</h1><p class="product-description">{escape(g["description"])}</p><div class="product-price"><strong>Стоимость по запросу</strong><span>Зависит от марки газа, объёма и условий заказа.</span></div><button class="button button-blue" type="button" data-order="{escape(g["name"])}">Запросить стоимость</button><a class="product-phone" href="tel:+78352222121">{PHONE} +7 (8352) 22-21-21</a></div>
+    <div class="product-symbol"><img src="../assets/products/{g["id"]}.jpg" alt="{escape(g["name"])} в баллонах" width="270" height="190"><span>{escape(g["type"])}</span></div>
+    <div class="product-info"><span class="eyebrow">ТЕХНИЧЕСКИЕ ГАЗЫ В ЧЕБОКСАРАХ</span><h1>{escape(g["name"])}</h1><p class="product-description">{escape(g["description"])}</p><div class="product-price"><strong>Стоимость по запросу</strong><span>Зависит от марки газа, объёма и условий заказа.</span></div><button class="button button-blue" type="button" data-order="{escape(g["name"])}">Узнать стоимость</button><a class="product-phone" href="tel:+78352222121">{PHONE} +7 (8352) 22-21-21</a></div>
   </section>
   <section class="container product-order-info"><div><span class="eyebrow">ДЛЯ РАСЧЁТА ЗАКАЗА</span><h2>Уточним детали</h2></div><div><p>{escape(g["note"])}</p><p>Если у вас есть собственные баллоны, сообщите об этом. Возможность заправки или обмена согласуем отдельно.</p><p>Получение: Хозяйственный проезд, 19В, Чебоксары. Возможность и условия доставки уточняйте в отделе продаж.</p></div></section>
   <section class="section related-section"><div class="container"><div class="section-heading"><h2>Другие газы</h2><a class="text-button" href="../index.html#catalog">Весь каталог</a></div><div class="related-grid">{"".join(card(p, "../") for p in related)}</div></div></section>
