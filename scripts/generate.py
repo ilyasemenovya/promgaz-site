@@ -5,6 +5,7 @@ import json
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
 GASES = json.loads((ROOT / "content/catalog.json").read_text())
+CATEGORIES = json.loads((ROOT / "content/categories.json").read_text())
 DIST.mkdir(exist_ok=True)
 (DIST / "gases").mkdir(exist_ok=True)
 (DIST / "assets").mkdir(exist_ok=True)
@@ -30,8 +31,8 @@ def head(title, description, prefix):
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
   <link rel="icon" href="{prefix}assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="{prefix}assets/styles.css?v=4">
-  <script src="{prefix}assets/site.js?v=4" defer></script>
+  <link rel="stylesheet" href="{prefix}assets/styles.css?v=5">
+  <script src="{prefix}assets/site.js?v=5" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Перейти к содержимому</a>'''
@@ -64,7 +65,12 @@ def header(prefix):
 </header>'''
 
 def order_dialog(selected=""):
-    options = "".join(f'<option value="{escape(g["name"])}"{" selected" if g["name"] == selected else ""}>{escape(g["name"])}</option>' for g in GASES)
+    options = ""
+    for category in CATEGORIES:
+        positions = GASES if category["id"] == "industrial" else category["items"]
+        options += f'<optgroup label="{escape(category["name"])}">'
+        options += "".join(f'<option value="{escape(g["name"])}"{" selected" if g["name"] == selected else ""}>{escape(g["name"])}</option>' for g in positions)
+        options += '</optgroup>'
     return f'''
 <dialog class="order-dialog" id="order-dialog" aria-labelledby="order-title">
   <div class="dialog-top"><span class="eyebrow">ЗАПРОС СТОИМОСТИ</span>
@@ -100,7 +106,21 @@ def footer(prefix):
 def card(g, prefix=""):
     return f'''<article class="gas-card"><a class="product-link" href="{prefix}gases/{g['id']}.html"><div class="catalog-photo"><img src="{prefix}assets/products/{g['id']}-new.jpg" alt="{escape(g['name'])} — изображение продукции" width="360" height="360" loading="lazy"></div><div class="card-copy"><h3>{escape(g['name'])}</h3></div></a><div class="card-order"><a href="{prefix}gases/{g['id']}.html">Подробнее</a><button type="button" data-order="{escape(g['name'])}">Узнать цену</button></div></article>'''
 
-cards = "".join(card(g) for g in GASES)
+def catalog():
+    tabs = "".join(f'<a class="catalog-tab" id="tab-{category["id"]}" href="#catalog-{category["id"]}">{escape(category["name"])}</a>' for category in CATEGORIES)
+    panels = []
+    for category in CATEGORIES:
+        if category["id"] == "industrial":
+            products = '<div class="catalog-grid">' + "".join(card(g) for g in GASES) + '</div>'
+        else:
+            products = '<div class="category-products">' + "".join(
+                f'<article class="category-product"><div><h3>{escape(item["name"])}</h3><p>{escape(item["description"])}</p></div><button type="button" data-order="{escape(item["name"])}" aria-label="Запросить стоимость: {escape(item["name"])}">Запросить стоимость</button></article>'
+                for item in category["items"]
+            ) + '</div>'
+        panels.append(f'<div class="catalog-panel" id="catalog-{category["id"]}" aria-labelledby="tab-{category["id"]}"><p class="category-description">{escape(category["description"])}</p>{products}</div>')
+    return f'<nav class="catalog-tabs" aria-label="Разделы каталога">{tabs}</nav>' + "".join(panels)
+
+
 home = head("ПРОМГАЗ — технические газы в Чебоксарах", "Продажа технических газов в Чебоксарах. ПРОМГАЗ: более 20 лет на рынке. Хозяйственный проезд, 19В. Телефон +7 (8352) 22-21-21.", "")
 home += header("")
 home += f'''
@@ -108,18 +128,17 @@ home += f'''
 <section class="hero">
  <div class="container hero-grid">
   <div class="hero-copy"><p class="hero-location">ПРОМГАЗ / ЧЕБОКСАРЫ</p><h1>Технические газы<br>и баллоны<br><span>в Чебоксарах</span></h1><p class="hero-description">Заправка, обмен, продажа и аренда.<br>Для предприятий, мастерских и частных заказов.</p><div class="hero-actions"><a href="#catalog" class="button button-blue">Открыть каталог</a><button class="button button-outline" type="button" data-order>Рассчитать заказ</button></div></div>
-  <div class="hero-media"><img class="industry-image" src="assets/industrial.jpg" alt="Применение технических газов в промышленности — материалы Linde" width="900" height="600" fetchpriority="high"><div class="dealer-card"><img src="assets/linde-logo.png" alt="Linde" width="150" height="80"><div><strong>Дилер Linde</strong><span>Продукция международного производителя</span></div></div></div>
+  <div class="hero-media"><img class="industry-image" src="assets/industrial.jpg" alt="Применение технических газов в промышленности — материалы Linde" width="900" height="600" fetchpriority="high"><div class="dealer-card"><img src="assets/linde-logo.png" alt="Linde" width="150" height="80"><div><strong>Официальный дилер Linde</strong><span>Продукция международного производителя</span></div></div></div>
  </div>
 </section>
-<div class="facts"><div class="container facts-grid"><div><strong>20+ лет</strong><span>работаем в Чебоксарах</span></div><div><strong>Баллоны</strong><span>Заправка, обмен, покупка и аренда</span></div><div><strong>Чебоксары</strong><span>Хозяйственный проезд, 19В</span></div></div></div>
-<section id="catalog" class="section catalog-section"><div class="container"><div class="section-heading"><div><span class="eyebrow">КАТАЛОГ</span><h2>Продукция</h2></div><p>Укажите марку, объём и количество.<br>Рассчитаем стоимость и условия получения.</p></div><div class="catalog-grid">{cards}</div><div class="catalog-bottom"><p>Есть спецификация или список для закупки?</p><a href="mailto:{EMAIL}" class="text-button">Отправить спецификацию</a></div></div></section>
+<div id="company" class="facts"><div class="container facts-grid"><div><strong>20+ лет</strong><span>работаем в Чебоксарах</span></div><div><strong>Баллоны</strong><span>Заправка, обмен, покупка и аренда</span></div><div><strong>Чебоксары</strong><span>Хозяйственный проезд, 19В</span></div></div></div>
+<section id="catalog" class="section catalog-section"><div class="container"><div class="section-heading"><div><span class="eyebrow">КАТАЛОГ</span><h2>Продукция</h2></div><p>Выберите раздел и нужную позицию.<br>Стоимость и сроки поставки уточняйте в запросе.</p></div>{catalog()}<div class="catalog-bottom"><p>Есть спецификация или список для закупки?</p><a href="mailto:{EMAIL}" class="text-button">Отправить спецификацию</a></div></div></section>
 <section id="services" class="section services-section"><div class="container service-layout"><div class="service-heading"><span class="eyebrow">БАЛЛОНЫ И УСЛУГИ</span><h2>Решим вопрос<br>с баллонами</h2><p>Подберём тару, согласуем обмен или обслуживание. Условия доставки рассчитаем по адресу и объёму заказа.</p></div><div class="service-list">
  <article class="service"><h3>Заправка и обмен</h3><p>Сообщите тип и объём ваших баллонов. Уточним условия заправки или подберём обмен.</p><button type="button" data-order="Другая продукция или услуга" data-comment="Нужна заправка или обмен баллонов.">Обсудить заправку</button></article>
  <article class="service"><h3>Продажа и аренда</h3><p>Если своего баллона нет, обсудим покупку или аренду под ваш заказ.</p><button type="button" data-order="Другая продукция или услуга" data-comment="Нужна покупка или аренда баллона.">Подобрать баллон</button></article>
  <article class="service"><h3>Обслуживание баллонов</h3><p>Освидетельствование и ремонт. Для расчёта нужны тип и состояние баллона.</p><button type="button" data-order="Другая продукция или услуга" data-comment="Интересует обслуживание баллонов.">Уточнить условия</button></article>
  <article class="service"><h3>Доставка и самовывоз</h3><p>Самовывоз — с Хозяйственного проезда, 19В. Доставку рассчитаем по адресу и объёму заказа.</p><button type="button" data-order="Другая продукция или услуга" data-comment="Хочу рассчитать доставку.">Рассчитать доставку</button></article>
 </div></div></section>
-<section id="company" class="section company-section"><div class="container dealer-section"><div class="dealer-brand"><img src="assets/linde-logo.png" alt="Linde" width="240" height="128"><span>ПРОМГАЗ — ДИЛЕР LINDE</span></div><div class="company-copy"><span class="eyebrow">ПРОИЗВОДИТЕЛЬ ИМЕЕТ ЗНАЧЕНИЕ</span><h2>Дилер Linde<br>в Чебоксарах</h2><p>Заказывайте продукцию Linde через ПРОМГАЗ. Поможем подобрать марку под технические требования, рассчитать объём поставки и согласовать получение.</p><a href="https://linru.ru/gases_and_equipment/" target="_blank" rel="noopener noreferrer" class="text-button">Продукция Linde</a></div></div></section>
 <section class="request-section"><div class="container request-grid"><div><span class="eyebrow">ОТДЕЛ ПРОДАЖ</span><h2>Рассчитаем<br>ваш заказ</h2><p>Сообщите, есть ли свои баллоны и нужна ли доставка.</p></div><div class="request-contact"><button type="button" class="button button-white" data-order>Подготовить запрос по почте</button><a class="request-spec" href="mailto:{EMAIL}">Отправить готовую спецификацию</a></div></div></section>
 <section id="contacts" class="section contacts-section"><div class="container"><div class="section-heading"><div><span class="eyebrow">КОНТАКТЫ</span><h2>ПРОМГАЗ в Чебоксарах</h2></div></div><div class="contacts-grid"><div class="contact-details"><div class="contact-item"><span class="contact-label">ОТДЕЛ ПРОДАЖ</span><a href="tel:+78352222121">+7 (8352) 22-21-21</a><a href="tel:+78352283093">+7 (8352) 28-30-93</a><a href="tel:+79278480990">+7 (927) 848-09-90</a></div><div class="contact-item"><span class="contact-label">ЭЛЕКТРОННАЯ ПОЧТА</span><a href="mailto:{EMAIL}">{EMAIL}</a></div></div><div class="visit-panel"><span class="eyebrow">АДРЕС</span><h3>Хозяйственный проезд, 19В</h3><p>Перед приездом уточните время работы и наличие нужной продукции.</p><a class="button button-blue" href="{MAP}" target="_blank" rel="noopener noreferrer">Построить маршрут</a></div></div></div></section>
 </main>'''

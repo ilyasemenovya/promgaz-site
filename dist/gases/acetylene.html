@@ -12,8 +12,8 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../assets/styles.css?v=4">
-  <script src="../assets/site.js?v=4" defer></script>
+  <link rel="stylesheet" href="../assets/styles.css?v=5">
+  <script src="../assets/site.js?v=5" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Перейти к содержимому</a>
@@ -66,7 +66,7 @@
   <p class="dialog-intro">Укажите состав заказа. Подготовим письмо в отдел продаж.</p>
   <form id="order-form">
     <label for="order-gas">Продукция или услуга</label>
-    <select id="order-gas" name="gas"><option value="">Выберите позицию</option><option value="Кислород">Кислород</option><option value="Аргон">Аргон</option><option value="Углекислота">Углекислота</option><option value="Азот">Азот</option><option value="Сварочная смесь">Сварочная смесь</option><option value="Ацетилен" selected>Ацетилен</option><option value="Пропан">Пропан</option><option value="Гелий">Гелий</option><option value="Другая продукция или услуга">Другая продукция или услуга</option></select>
+    <select id="order-gas" name="gas"><option value="">Выберите позицию</option><optgroup label="Промышленные газы"><option value="Кислород">Кислород</option><option value="Аргон">Аргон</option><option value="Углекислота">Углекислота</option><option value="Азот">Азот</option><option value="Сварочная смесь">Сварочная смесь</option><option value="Ацетилен" selected>Ацетилен</option><option value="Пропан">Пропан</option><option value="Гелий">Гелий</option></optgroup><optgroup label="Пищевые газы"><option value="Пищевая углекислота">Пищевая углекислота</option><option value="Пищевой азот">Пищевой азот</option><option value="Пищевой кислород">Пищевой кислород</option><option value="Смеси для упаковки">Смеси для упаковки</option></optgroup><optgroup label="Медицинские газы"><option value="Медицинский кислород">Медицинский кислород</option><option value="Медицинская закись азота">Медицинская закись азота</option><option value="Медицинский воздух">Медицинский воздух</option></optgroup><optgroup label="Специальные газы"><option value="Особо чистые компоненты">Особо чистые компоненты</option><option value="Поверочные смеси">Поверочные смеси</option><option value="Лазерные смеси">Лазерные смеси</option><option value="Редкие газы">Редкие газы</option></optgroup><optgroup label="Оборудование"><option value="Баллонные регуляторы">Баллонные регуляторы</option><option value="Панели подачи">Панели подачи</option><option value="Сварочные регуляторы">Сварочные регуляторы</option></optgroup><option value="Другая продукция или услуга">Другая продукция или услуга</option></select>
     <label for="order-quantity">Количество и объём</label>
     <input id="order-quantity" name="quantity" placeholder="Например, 2 баллона по 40 л" maxlength="150">
     <label for="order-comment">Пожелания к заказу</label>

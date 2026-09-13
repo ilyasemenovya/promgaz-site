@@ -25,6 +25,55 @@
     });
   }
 
+  var categoryNav = document.querySelector('.catalog-tabs');
+  if (categoryNav) {
+    var categoryTabs = Array.from(categoryNav.querySelectorAll('.catalog-tab'));
+    var categoryPanels = categoryTabs.map(function (tab) {
+      return document.getElementById(tab.hash.slice(1));
+    });
+    function showCategory(index) {
+      categoryTabs.forEach(function (tab, i) {
+        tab.setAttribute('aria-selected', String(i === index));
+        tab.tabIndex = i === index ? 0 : -1;
+        categoryPanels[i].hidden = i !== index;
+      });
+    }
+    function categoryFromHash() {
+      var index = categoryTabs.findIndex(function (tab) { return tab.hash === window.location.hash; });
+      if (index !== -1) showCategory(index);
+    }
+    categoryNav.setAttribute('role', 'tablist');
+    categoryTabs.forEach(function (tab, index) {
+      tab.setAttribute('role', 'tab');
+      tab.setAttribute('aria-controls', categoryPanels[index].id);
+      categoryPanels[index].setAttribute('role', 'tabpanel');
+      categoryPanels[index].tabIndex = 0;
+      tab.addEventListener('click', function (event) {
+        event.preventDefault();
+        showCategory(index);
+        history.replaceState(null, '', tab.hash);
+      });
+      tab.addEventListener('keydown', function (event) {
+        var next = index;
+        if (event.key === 'ArrowRight') next = (index + 1) % categoryTabs.length;
+        else if (event.key === 'ArrowLeft') next = (index + categoryTabs.length - 1) % categoryTabs.length;
+        else if (event.key === 'Home') next = 0;
+        else if (event.key === 'End') next = categoryTabs.length - 1;
+        else if (event.key === ' ') {
+          event.preventDefault();
+          tab.click();
+          return;
+        } else return;
+        event.preventDefault();
+        categoryTabs[next].focus();
+        categoryTabs[next].click();
+      });
+    });
+    showCategory(0);
+    categoryFromHash();
+    window.addEventListener('hashchange', categoryFromHash);
+  }
+
   var dialog = document.getElementById('order-dialog');
   var form = document.getElementById('order-form');
   if (!dialog || !form) return;
