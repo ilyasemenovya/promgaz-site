@@ -74,20 +74,30 @@
  .contact-item > a { max-width:100%; overflow-wrap:anywhere; }
 }
 
-/* Primary blue surfaces with the approved reversed logo. */
+/* Alternating blue and white sections. */
 .site-header { background:var(--blue); color:#fff; border-bottom-color:rgba(255,255,255,.2); }
 .desktop-nav a:hover,.mobile-nav a:hover { color:#fff; text-decoration:underline; text-underline-offset:6px; }
 .menu-toggle { background:transparent; border-color:rgba(255,255,255,.55); }
 .menu-toggle span { background:#fff; }
 .mobile-nav { border-top-color:rgba(255,255,255,.2); }
-.hero { background:var(--blue); color:#fff; }
-.hero h1 span { color:#fff; }
-.hero-description { color:#e2ebfa; }
-.hero .button-blue { background:#fff; color:var(--blue); }
-.hero .button-blue:hover { background:#eaf0fa; }
-.hero .button-outline { background:transparent; color:#fff; border-color:rgba(255,255,255,.75); }
-.hero .button-outline:hover { background:rgba(255,255,255,.12); }
-.dealer-card { color:var(--ink); border-bottom-color:#fff; }
-.site-footer,.request-section { background:var(--blue); color:#fff; }
-.footer-bottom { color:#dce6f6; border-top-color:rgba(255,255,255,.25); }
-.site-header a:focus-visible,.site-header button:focus-visible,.hero a:focus-visible,.hero button:focus-visible,.site-footer a:focus-visible { outline-color:#fff; }
+.hero { background:#fff; color:var(--ink); }
+.hero h1 span { color:var(--blue); }
+.hero-description { color:var(--muted); }
+.dealer-card { color:var(--ink); border:1px solid var(--line); border-bottom:3px solid var(--blue); }
+.facts,.services-section,.contacts-section { background:var(--blue); color:#fff; border-color:var(--blue); }
+.facts span,.service-heading > p,.service p,.contact-label { color:#e2ebfa; }
+.facts-grid > div { border-color:rgba(255,255,255,.3); }
+.services-section .eyebrow,.services-section button,.contacts-section .section-heading .eyebrow { color:#fff; }
+.service { border-top-color:rgba(255,255,255,.5); }
+.service button:hover { text-decoration-thickness:2px; }
+.request-section { background:#fff; color:var(--ink); }
+.request-grid .eyebrow,.request-spec { color:var(--blue); }
+.request-grid p { color:var(--muted); }
+.request-section .button-white { background:var(--blue); color:#fff; }
+.request-section .button-white:hover { background:#10387b; }
+.contact-item > a:hover { color:#fff; text-decoration:underline; text-underline-offset:5px; }
+.visit-panel { background:#fff; color:var(--ink); border-left-color:#fff; }
+.site-footer { background:#fff; color:var(--ink); }
+.footer-bottom { color:var(--muted); border-top-color:var(--line); }
+.footer-links a:hover { color:var(--blue); text-decoration:underline; text-underline-offset:4px; }
+.site-header a:focus-visible,.site-header button:focus-visible,.services-section button:focus-visible,.contact-item a:focus-visible { outline-color:#fff; }
