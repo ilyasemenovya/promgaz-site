@@ -42,7 +42,7 @@ def header(prefix):
 <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href="{home}" aria-label="ПРОМГАЗ — главная">
-      <span class="brand-name">ПРОМГАЗ<span class="brand-square" aria-hidden="true"></span></span>
+      <span class="brand-name">ПРОМГАЗ</span>
       <span class="brand-caption">ТЕХНИЧЕСКИЕ ГАЗЫ</span>
     </a>
     <nav class="desktop-nav" aria-label="Основная навигация">
@@ -84,7 +84,7 @@ def order_dialog(selected=""):
     <input id="order-quantity" name="quantity" placeholder="Например, 2 баллона по 40 л" maxlength="150">
     <label for="order-comment">Пожелания к заказу</label>
     <textarea id="order-comment" name="comment" rows="3" placeholder="Марка газа, наличие своих баллонов, адрес доставки…" maxlength="1500"></textarea>
-    <button class="button button-blue button-full" type="submit">Открыть письмо {ARROW}</button>
+    <button class="button button-blue button-full" type="submit">Открыть письмо</button>
     <p class="form-note">Откроется ваша почтовая программа. Отправьте письмо, чтобы отдел продаж получил запрос.</p>
     <p id="email-feedback" class="email-feedback" role="status" hidden>Письмо подготовлено. Если почтовая программа не открылась, напишите на <a href="mailto:{EMAIL}">{EMAIL}</a> или позвоните.</p>
   </form>
@@ -95,19 +95,19 @@ def footer(prefix):
     return f'''
 <footer class="site-footer">
   <div class="container footer-main">
-    <a class="brand brand-light" href="{prefix}index.html" aria-label="ПРОМГАЗ — главная"><span class="brand-name">ПРОМГАЗ<span class="brand-square" aria-hidden="true"></span></span><span class="brand-caption">ТЕХНИЧЕСКИЕ ГАЗЫ</span></a>
+    <a class="brand brand-light" href="{prefix}index.html" aria-label="ПРОМГАЗ — главная"><span class="brand-name">ПРОМГАЗ</span><span class="brand-caption">ТЕХНИЧЕСКИЕ ГАЗЫ</span></a>
     <p>Чебоксары<br>Хозяйственный проезд, 19В</p>
     <div><a href="tel:+78352222121">+7 (8352) 22-21-21</a><a href="mailto:{EMAIL}">{EMAIL}</a></div>
   </div>
   <div class="container footer-bottom"><span>© ПРОМГАЗ, 2026</span><span>ИП Сусарина А. В. · ИНН 212900123770</span></div>
 </footer>
-<div class="mobile-contact-bar"><a href="tel:+78352222121">{PHONE} Позвонить</a><button type="button" data-order>Запросить стоимость {ARROW}</button></div>'''
+<div class="mobile-contact-bar"><a href="tel:+78352222121">{PHONE} Позвонить</a><button type="button" data-order>Запросить стоимость</button></div>'''
 
 def card(g, prefix=""):
     return f'''<a class="gas-card gas-{g["color"]}" href="{prefix}gases/{g["id"]}.html">
-  <div class="gas-card-top"><span class="gas-formula">{escape(g["formula"])}</span><span class="card-arrow">{OUT}</span></div>
+  <div class="gas-card-top"><span class="gas-formula">{escape(g["formula"])}</span></div>
   <div><span class="gas-type">{escape(g["type"])}</span><h3>{escape(g["name"])}</h3></div>
-  <div class="gas-card-bottom"><span>Стоимость по запросу</span><span>Подробнее</span></div>
+  <div class="gas-card-bottom"><span>Стоимость по запросу</span><span class="catalog-link">Подробнее <span aria-hidden="true">→</span></span></div>
 </a>'''
 
 cards = "".join(card(g) for g in GASES)
@@ -118,16 +118,19 @@ home += f'''
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-copy">
-        <div class="eyebrow hero-eyebrow"><span class="small-rule"></span> ЧЕБОКСАРЫ</div>
-        <h1>Технические<br>газы<span class="cyan">.</span><br><span class="hero-soft">Для вашей<br class="desktop-break"> работы.</span></h1>
-        <p>Кислород, аргон, углекислота<br class="desktop-break"> и другие газы для технических задач.</p>
-        <div class="hero-actions"><a class="button button-white" href="#catalog">Выбрать газ {ARROW}</a><button class="button button-ghost" type="button" data-order>Запросить стоимость</button></div>
-        <div class="hero-experience"><strong>20<span>+</span></strong><span>лет на рынке<br>технических газов</span></div>
+        <div class="eyebrow hero-eyebrow">ЧЕБОКСАРЫ</div>
+        <h1>Технические<br>газы</h1>
+        <p>Кислород, аргон, углекислота и другие газы для технических задач. Более 20 лет на рынке.</p>
+        <div class="hero-actions"><a class="button button-white" href="#catalog">Выбрать газ</a><button class="button button-ghost" type="button" data-order>Запросить стоимость</button></div>
+
       </div>
-      <figure class="hero-photo">
-        <img src="assets/loading-zone.jpeg" alt="Вывеска ПРОМГАЗ и вход в зону отгрузки на Хозяйственном проезде, 19В" width="706" height="1536" fetchpriority="high">
-        <figcaption><span class="photo-caption-label">ПРОМГАЗ / ЧЕБОКСАРЫ</span><span>Хозяйственный<br>проезд, 19В</span><a href="{MAP}" target="_blank" rel="noopener noreferrer" aria-label="Построить маршрут в Яндекс Картах">{OUT}</a></figcaption>
-      </figure>
+      <div class="hero-directory" aria-label="Основные газы">
+        <span class="directory-label">ПРОДУКЦИЯ</span>
+        <a href="gases/oxygen.html"><span class="directory-formula">O₂</span><span>Кислород</span><span class="direction" aria-hidden="true">→</span></a>
+        <a href="gases/argon.html"><span class="directory-formula">Ar</span><span>Аргон</span><span class="direction" aria-hidden="true">→</span></a>
+        <a href="gases/carbon-dioxide.html"><span class="directory-formula">CO₂</span><span>Углекислота</span><span class="direction" aria-hidden="true">→</span></a>
+        <a class="directory-all" href="#catalog"><span>Весь каталог газов</span><span class="direction" aria-hidden="true">↓</span></a>
+      </div>
     </div>
   </section>
 
@@ -143,7 +146,7 @@ home += f'''
     <div class="container">
       <div class="section-heading"><div><span class="eyebrow">ПРОДУКЦИЯ</span><h2>Найдите свой газ</h2></div><p>Выберите позицию, чтобы уточнить<br>параметры и запросить стоимость.</p></div>
       <div class="catalog-grid">{cards}</div>
-      <div class="catalog-bottom"><p>Нужен другой газ или особая марка?</p><button class="text-button" type="button" data-order="Другая продукция или услуга">Обсудить заказ {ARROW}</button></div>
+      <div class="catalog-bottom"><p>Нужен другой газ или особая марка?</p><button class="text-button" type="button" data-order="Другая продукция или услуга">Обсудить заказ</button></div>
     </div>
   </section>
 
@@ -151,36 +154,36 @@ home += f'''
     <div class="container">
       <div class="section-heading"><div><span class="eyebrow">УСЛУГИ</span><h2>Газ и всё,<br>что с ним связано</h2></div><p>Уточните доступную услугу<br>и условия для вашего заказа.</p></div>
       <div class="service-grid">
-        <article class="service"><span class="service-index">01 /</span><h3>Заправка<br>и обмен</h3><p>Сообщите, какой газ нужен и какие баллоны у вас есть. Уточним порядок заправки или обмена.</p><button class="text-button" type="button" data-order="Другая продукция или услуга" data-comment="Интересует заправка или обмен баллонов.">Уточнить условия {ARROW}</button></article>
-        <article class="service"><span class="service-index">02 /</span><h3>Продажа<br>и аренда баллонов</h3><p>Уточните доступные баллоны, стоимость покупки и условия аренды.</p><button class="text-button" type="button" data-order="Другая продукция или услуга" data-comment="Интересует покупка или аренда баллонов.">Уточнить условия {ARROW}</button></article>
-        <article class="service"><span class="service-index">03 /</span><h3>Обслуживание<br>баллонов</h3><p>Вопросы по освидетельствованию и ремонту. Для расчёта сообщите тип и состояние баллона.</p><button class="text-button" type="button" data-order="Другая продукция или услуга" data-comment="Интересует обслуживание баллонов.">Уточнить условия {ARROW}</button></article>
-        <article class="service"><span class="service-index">04 /</span><h3>Доставка<br>и самовывоз</h3><p>Укажите адрес и объём заказа. Согласуем возможность доставки, стоимость и время получения.</p><button class="text-button" type="button" data-order="Другая продукция или услуга" data-comment="Хочу уточнить условия доставки или самовывоза.">Уточнить условия {ARROW}</button></article>
+        <article class="service"><span class="service-index">01 /</span><h3>Заправка<br>и обмен</h3><p>Сообщите, какой газ нужен и какие баллоны у вас есть. Уточним порядок заправки или обмена.</p><button class="text-button" type="button" data-order="Другая продукция или услуга" data-comment="Интересует заправка или обмен баллонов.">Уточнить условия</button></article>
+        <article class="service"><span class="service-index">02 /</span><h3>Продажа<br>и аренда баллонов</h3><p>Уточните доступные баллоны, стоимость покупки и условия аренды.</p><button class="text-button" type="button" data-order="Другая продукция или услуга" data-comment="Интересует покупка или аренда баллонов.">Уточнить условия</button></article>
+        <article class="service"><span class="service-index">03 /</span><h3>Обслуживание<br>баллонов</h3><p>Вопросы по освидетельствованию и ремонту. Для расчёта сообщите тип и состояние баллона.</p><button class="text-button" type="button" data-order="Другая продукция или услуга" data-comment="Интересует обслуживание баллонов.">Уточнить условия</button></article>
+        <article class="service"><span class="service-index">04 /</span><h3>Доставка<br>и самовывоз</h3><p>Укажите адрес и объём заказа. Согласуем возможность доставки, стоимость и время получения.</p><button class="text-button" type="button" data-order="Другая продукция или услуга" data-comment="Хочу уточнить условия доставки или самовывоза.">Уточнить условия</button></article>
       </div>
     </div>
   </section>
 
   <section id="company" class="section company-section">
     <div class="container company-grid">
-      <div><span class="eyebrow">О КОМПАНИИ</span><h2>ПРОМГАЗ.<br>Знакомое имя.<br><span class="blue">Большой опыт.</span></h2></div>
-      <div class="company-copy"><p class="lead">Более 20 лет<br>на рынке технических газов.</p><p>Работаем в Чебоксарах на Хозяйственном проезде, 19В. Поможем уточнить ассортимент, стоимость и условия получения вашего заказа.</p><p>Для расчёта достаточно сообщить, какой газ нужен, в каком количестве и есть ли у вас свои баллоны.</p><a class="text-button" href="#contacts">Связаться с нами {ARROW}</a></div>
+      <div><span class="eyebrow">О КОМПАНИИ</span><h2>Более 20 лет<br>в технических<br><span class="blue">газах</span></h2></div>
+      <div class="company-copy"><p class="lead">Более 20 лет<br>на рынке технических газов.</p><p>Работаем в Чебоксарах на Хозяйственном проезде, 19В. Поможем уточнить ассортимент, стоимость и условия получения вашего заказа.</p><p>Для расчёта достаточно сообщить, какой газ нужен, в каком количестве и есть ли у вас свои баллоны.</p><a class="text-button" href="#contacts">Связаться с нами</a></div>
     </div>
-    <div class="container"><div class="partner-block"><div><span class="eyebrow">НАШ ПАРТНЁР</span><h3>Линде Газ Рус</h3></div><p>Информация о газах и оборудовании партнёра — в официальном каталоге.</p><a class="button button-outline" href="https://linru.ru/gases_and_equipment/" target="_blank" rel="noopener noreferrer">Каталог партнёра {OUT}</a></div></div>
+    <div class="container"><div class="partner-block"><div><span class="eyebrow">НАШ ПАРТНЁР</span><h3>Линде Газ Рус</h3></div><p>Информация о газах и оборудовании партнёра — в официальном каталоге.</p><a class="button button-outline" href="https://linru.ru/gases_and_equipment/" target="_blank" rel="noopener noreferrer">Каталог партнёра </a></div></div>
   </section>
 
   <section class="request-section">
-    <div class="container request-grid"><div><span class="eyebrow">ОТДЕЛ ПРОДАЖ</span><h2>Обсудим<br>ваш заказ?</h2></div><div><p>Газ, количество, условия получения.<br>Начнём с того, что вам нужно.</p><button class="button button-white" type="button" data-order>Запросить стоимость {ARROW}</button><a class="request-email" href="mailto:{EMAIL}">{EMAIL}</a></div></div>
+    <div class="container request-grid"><div><span class="eyebrow">ОТДЕЛ ПРОДАЖ</span><h2>Обсудим<br>ваш заказ?</h2></div><div><p>Газ, количество, условия получения.<br>Начнём с того, что вам нужно.</p><button class="button button-white" type="button" data-order>Запросить стоимость</button><a class="request-email" href="mailto:{EMAIL}">{EMAIL}</a></div></div>
   </section>
 
   <section id="contacts" class="section contacts-section">
     <div class="container">
-      <div class="section-heading"><div><span class="eyebrow">КОНТАКТЫ</span><h2>Мы в Чебоксарах</h2></div><a class="text-button" href="{MAP}" target="_blank" rel="noopener noreferrer">Открыть Яндекс Карты {OUT}</a></div>
+      <div class="section-heading"><div><span class="eyebrow">КОНТАКТЫ</span><h2>Мы в Чебоксарах</h2></div><a class="text-button" href="{MAP}" target="_blank" rel="noopener noreferrer">Открыть Яндекс Карты </a></div>
       <div class="contacts-grid">
         <div class="contact-details">
           <div class="contact-item"><span class="contact-label">АДРЕС</span><p>Хозяйственный<br>проезд, 19В</p><span class="muted">Перед приездом уточните время работы.</span></div>
           <div class="contact-item"><span class="contact-label">ТЕЛЕФОНЫ</span><a href="tel:+78352222121">+7 (8352) 22-21-21</a><a href="tel:+78352283093">+7 (8352) 28-30-93</a><a href="tel:+79278480990">+7 (927) 848-09-90</a></div>
           <div class="contact-item"><span class="contact-label">ПОЧТА</span><a class="email-link" href="mailto:{EMAIL}">{EMAIL}</a></div>
         </div>
-        <a class="contact-photo" href="{MAP}" target="_blank" rel="noopener noreferrer"><img src="assets/loading-zone.jpeg" alt="Здание ПРОМГАЗ: ориентир для приезда на склад" width="706" height="1536" loading="lazy"><span>Узнайте нас по синей вывеске {OUT}</span></a>
+        <div class="visit-panel"><span class="eyebrow">САМОВЫВОЗ</span><h3>Хозяйственный<br>проезд, 19В</h3><p>Чебоксары</p><a class="visit-link" href="{MAP}" target="_blank" rel="noopener noreferrer">Построить маршрут <span aria-hidden="true">→</span></a><p class="visit-note">Перед приездом позвоните — согласуем заказ и время получения.</p></div>
       </div>
     </div>
   </section>
@@ -196,15 +199,15 @@ for g in GASES:
   <div class="container breadcrumbs"><a href="../index.html">Главная</a><span>/</span><a href="../index.html#catalog">Каталог</a><span>/</span><span>{escape(g["name"])}</span></div>
   <section class="container product-hero">
     <div class="product-symbol gas-{g["color"]}"><span class="eyebrow">ПРОМГАЗ / ТЕХНИЧЕСКИЕ ГАЗЫ</span><div>{escape(g["formula"])}</div><span>{escape(g["type"])}</span></div>
-    <div class="product-info"><span class="eyebrow">ТЕХНИЧЕСКИЕ ГАЗЫ В ЧЕБОКСАРАХ</span><h1>{escape(g["name"])}</h1><p class="product-description">{escape(g["description"])}</p><div class="product-price"><strong>Стоимость по запросу</strong><span>Зависит от марки газа, объёма и условий заказа.</span></div><button class="button button-blue" type="button" data-order="{escape(g["name"])}">Запросить стоимость {ARROW}</button><a class="product-phone" href="tel:+78352222121">{PHONE} +7 (8352) 22-21-21</a></div>
+    <div class="product-info"><span class="eyebrow">ТЕХНИЧЕСКИЕ ГАЗЫ В ЧЕБОКСАРАХ</span><h1>{escape(g["name"])}</h1><p class="product-description">{escape(g["description"])}</p><div class="product-price"><strong>Стоимость по запросу</strong><span>Зависит от марки газа, объёма и условий заказа.</span></div><button class="button button-blue" type="button" data-order="{escape(g["name"])}">Запросить стоимость</button><a class="product-phone" href="tel:+78352222121">{PHONE} +7 (8352) 22-21-21</a></div>
   </section>
   <section class="container product-order-info"><div><span class="eyebrow">ДЛЯ РАСЧЁТА ЗАКАЗА</span><h2>Уточним детали</h2></div><div><p>{escape(g["note"])}</p><p>Если у вас есть собственные баллоны, сообщите об этом. Возможность заправки или обмена согласуем отдельно.</p><p>Получение: Хозяйственный проезд, 19В, Чебоксары. Возможность и условия доставки уточняйте в отделе продаж.</p></div></section>
-  <section class="section related-section"><div class="container"><div class="section-heading"><h2>Другие газы</h2><a class="text-button" href="../index.html#catalog">Весь каталог {ARROW}</a></div><div class="related-grid">{"".join(card(p, "../") for p in related)}</div></div></section>
+  <section class="section related-section"><div class="container"><div class="section-heading"><h2>Другие газы</h2><a class="text-button" href="../index.html#catalog">Весь каталог</a></div><div class="related-grid">{"".join(card(p, "../") for p in related)}</div></div></section>
 </main>'''
     page += footer("../") + order_dialog(g["name"]) + "\n</body></html>\n"
     (DIST / "gases" / (g["id"] + ".html")).write_text(page, encoding="utf-8")
 
 (DIST / "robots.txt").write_text("User-agent: *\nDisallow: /\n")
 (DIST / ".nojekyll").write_text("")
-(DIST / "assets" / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#164ca8"/><path d="M17 47V17h30v30H37V27H27v20Z" fill="white"/><rect x="44" y="44" width="10" height="10" fill="#55d5d5"/></svg>')
+(DIST / "assets" / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="0" fill="#164ca8"/><path d="M17 47V17h30v30H37V27H27v20Z" fill="white"/></svg>')
 print("Generated homepage and", len(GASES), "product pages.")
