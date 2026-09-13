@@ -73,3 +73,21 @@
 @media(max-width:700px) {
  .contact-item > a { max-width:100%; overflow-wrap:anywhere; }
 }
+
+/* Primary blue surfaces with the approved reversed logo. */
+.site-header { background:var(--blue); color:#fff; border-bottom-color:rgba(255,255,255,.2); }
+.desktop-nav a:hover,.mobile-nav a:hover { color:#fff; text-decoration:underline; text-underline-offset:6px; }
+.menu-toggle { background:transparent; border-color:rgba(255,255,255,.55); }
+.menu-toggle span { background:#fff; }
+.mobile-nav { border-top-color:rgba(255,255,255,.2); }
+.hero { background:var(--blue); color:#fff; }
+.hero h1 span { color:#fff; }
+.hero-description { color:#e2ebfa; }
+.hero .button-blue { background:#fff; color:var(--blue); }
+.hero .button-blue:hover { background:#eaf0fa; }
+.hero .button-outline { background:transparent; color:#fff; border-color:rgba(255,255,255,.75); }
+.hero .button-outline:hover { background:rgba(255,255,255,.12); }
+.dealer-card { color:var(--ink); border-bottom-color:#fff; }
+.site-footer,.request-section { background:var(--blue); color:#fff; }
+.footer-bottom { color:#dce6f6; border-top-color:rgba(255,255,255,.25); }
+.site-header a:focus-visible,.site-header button:focus-visible,.hero a:focus-visible,.hero button:focus-visible,.site-footer a:focus-visible { outline-color:#fff; }

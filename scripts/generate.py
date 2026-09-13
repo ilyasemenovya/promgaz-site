@@ -31,7 +31,7 @@ def head(title, description, prefix):
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
   <link rel="icon" href="{prefix}assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="{prefix}assets/styles.css?v=9">
+  <link rel="stylesheet" href="{prefix}assets/styles.css?v=10">
   <script src="{prefix}assets/site.js?v=6" defer></script>
 </head>
 <body>
@@ -43,7 +43,7 @@ def header(prefix):
 <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href="{home}" aria-label="ПРОМГАЗ — главная">
-      <img class="brand-logo" src="{prefix}assets/brand/promgaz-logo-soft.svg" alt="ПРОМГАЗ — технические газы" width="1486" height="290">
+      <img class="brand-logo" src="{prefix}assets/brand/promgaz-logo-white.svg" alt="ПРОМГАЗ — технические газы" width="1486" height="290">
     </a>
     <nav class="desktop-nav" aria-label="Основная навигация">
       <a href="{home}#catalog">Каталог</a>
