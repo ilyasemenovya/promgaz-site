@@ -31,8 +31,8 @@ def head(title, description, prefix):
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
   <link rel="icon" href="{prefix}assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="{prefix}assets/styles.css?v=5">
-  <script src="{prefix}assets/site.js?v=5" defer></script>
+  <link rel="stylesheet" href="{prefix}assets/styles.css?v=6">
+  <script src="{prefix}assets/site.js?v=6" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Перейти к содержимому</a>'''
