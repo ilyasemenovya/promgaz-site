@@ -101,3 +101,29 @@
 .footer-bottom { color:var(--muted); border-top-color:var(--line); }
 .footer-links a:hover { color:var(--blue); text-decoration:underline; text-underline-offset:4px; }
 .site-header a:focus-visible,.site-header button:focus-visible,.services-section button:focus-visible,.contact-item a:focus-visible { outline-color:#fff; }
+
+/* Application guide: component, industry, and task in three aligned rows. */
+.applications { border:1px solid #d8e2f1; background:#f5f8fd; }
+.application { display:grid; grid-template-columns:94px minmax(0,1fr); gap:22px; align-items:center; padding:23px 26px; }
+.application + .application { border-top:1px solid #d8e2f1; }
+.application-formula { color:var(--blue); font-size:40px; line-height:1; font-weight:600; letter-spacing:-.04em; }
+.application-formula span { display:block; margin-top:8px; font-size:17px; letter-spacing:0; font-weight:500; }
+.application h2 { font-size:22px; line-height:1.2; letter-spacing:-.025em; }
+.application p { margin:7px 0; color:var(--ink); font-size:14px; line-height:1.5; }
+.application-components { display:block; color:var(--muted); font-size:12px; line-height:1.5; }
+.hero-media .dealer-card { margin-top:16px; }
+.footer-main { grid-template-columns:1fr 1fr; }
+.footer-links { justify-self:end; }
+.contact-map { margin-top:36px; }
+.contact-map iframe { display:block; width:100%; height:380px; border:0; background:#eef2f7; }
+.contact-map > a { display:inline-block; margin-top:14px; font-size:14px; text-decoration:underline; text-underline-offset:4px; }
+@media(max-width:700px) {
+ .application { grid-template-columns:68px minmax(0,1fr); gap:16px; padding:20px 18px; }
+ .application-formula { font-size:34px; }
+ .application-formula span { font-size:15px; }
+ .application h2 { font-size:20px; }
+ .application p { font-size:13px; }
+ .contact-map iframe { height:320px; }
+ .footer-main { grid-template-columns:1fr; gap:28px; }
+ .footer-links { justify-self:start; }
+}
